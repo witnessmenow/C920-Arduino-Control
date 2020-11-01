@@ -1,10 +1,19 @@
-/* --------------------------
+/*******************************************************************
+    In this example we will see how to receive commands via a web request (over WiFi)
 
-In this example we will see how to receive commands via a web request (over WiFi)
+    This should be paired with the Arduino Sketch "RotaryEncoderWeb"
 
-This should be paired with the Arduino Sketch "RotaryEncoderWeb"
+    If you find what I do useful and would like to support me,
+    please consider becoming a sponsor on Github
+    https://github.com/sponsors/witnessmenow/
 
------------------------------*/
+
+    Written by Brian Lough
+    YouTube: https://www.youtube.com/brianlough
+    Tindie: https://www.tindie.com/stores/brianlough/
+    Twitter: https://twitter.com/witnessmenow
+ *******************************************************************/
+
 const camControl = require("./index");
 
 const express = require("express");

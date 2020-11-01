@@ -1,12 +1,21 @@
-/* --------------------------
+/*******************************************************************
+    In this example we will focus the cameras using macro keyboard commands
 
-In this example we will focus the cameras using hot keys
+    Does not need an Arduino to Test, but to use with an Arudino you
+    would emulate the key presses with a HID compatible Arudino such
+    as the Pro Micro or ESP32 BLE.
 
-Does not need an Arduino to Test, but to use with an Arudino you
-would emulate the key presses with a HID compatible Arudino such
-as the Pro Micro or ESP32 BLE
+    If you find what I do useful and would like to support me,
+    please consider becoming a sponsor on Github
+    https://github.com/sponsors/witnessmenow/
 
------------------------------*/
+
+    Written by Brian Lough
+    YouTube: https://www.youtube.com/brianlough
+    Tindie: https://www.tindie.com/stores/brianlough/
+    Twitter: https://twitter.com/witnessmenow
+ *******************************************************************/
+
 const camControl = require("./index");
 const ioHook = require("iohook");
 

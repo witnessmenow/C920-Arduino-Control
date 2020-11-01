@@ -1,10 +1,21 @@
-/* --------------------------
+/*******************************************************************
+    In this example we will see how to receive commands via a serial port
 
-In this example we will see how to receive commands via a serial port
+    This should be paired with the Arduino Sketch "RotaryEncoderSerial"
 
-This should be paired with the Arduino Sketch "RotaryEncoderSerial"
+    You will need to update this example with the COM port of your Arduino
 
------------------------------*/
+    If you find what I do useful and would like to support me,
+    please consider becoming a sponsor on Github
+    https://github.com/sponsors/witnessmenow/
+
+
+    Written by Brian Lough
+    YouTube: https://www.youtube.com/brianlough
+    Tindie: https://www.tindie.com/stores/brianlough/
+    Twitter: https://twitter.com/witnessmenow
+ *******************************************************************/
+
 const camControl = require("./index");
 
 const comPort = "COM6"; //Could be '/dev/tty-usbserial1' on mac
