@@ -43,6 +43,7 @@ ioHook.on("keydown", (event) => {
           .catch((err) => console.log(err));
         break;
       case 32: //space
+      case 112: //F1
         activeWebcamIndex = (activeWebcamIndex + 1) % 2; // will toggle between 0 and 1
         break;
     }
