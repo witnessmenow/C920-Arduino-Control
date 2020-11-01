@@ -44,6 +44,8 @@ const int reCLKPin = D1;
 long oldPosition = -999;
 unsigned long reTurnAllowedTime = 0;
 
+#define ENCODER_COOLDOWN 100
+
 int selectedWebCam = 0;
 
 Encoder myEnc(reDTPin, reCLKPin);
@@ -80,10 +82,10 @@ void handleRotaryEncoderTurn()
     sprintf(command, "%s,%d,%d", "adj", selectedWebCam, -5);
   }
 
-  Serial.print(command);
-
-  if (newPosition != oldPosition)
+  if (reTurnAllowedTime < millis() && newPosition != oldPosition)
   {
+    reTurnAllowedTime = millis() + ENCODER_COOLDOWN;
+    Serial.print(command);
   }
 
   oldPosition = newPosition;
@@ -91,11 +93,7 @@ void handleRotaryEncoderTurn()
 
 void loop()
 {
-  if (reTurnAllowedTime < millis())
-  {
-    handleRotaryEncoderTurn();
-    reTurnAllowedTime = millis() + 100;
-  }
+  handleRotaryEncoderTurn();
 
   if (digitalRead(reButtonPin) == LOW)
   {

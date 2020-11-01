@@ -1,26 +1,3 @@
-/*******************************************************************
-    Reads input from a Rotary Encoder and makes web requests
-    to control the focus on the webcam
-
-    Should be used with the "webserverExample.js" on the PC.
-
-    Make sure to update this sketch with the IP address of your PC
-
-    Parts:
-    D1 Mini ESP8266 * - http://s.click.aliexpress.com/e/uzFUnIe
-    Rotary Encoder * - https://s.click.aliexpress.com/e/_AeDgtJ
-
-    If you find what I do useful and would like to support me,
-    please consider becoming a sponsor on Github
-    https://github.com/sponsors/witnessmenow/
-
-
-    Written by Brian Lough
-    YouTube: https://www.youtube.com/brianlough
-    Tindie: https://www.tindie.com/stores/brianlough/
-    Twitter: https://twitter.com/witnessmenow
- *******************************************************************/
-
 // ----------------------------
 // Standard Libraries
 // ----------------------------
@@ -34,25 +11,9 @@
 
 #include <Encoder.h>
 // Library for using the Rotary Encoder
-
-// Needs to be installed from Github
 // The original library by Paul Stoffregen does not work with
 // interupts and the ESP8266 anymore, here is a modified version
 // https://github.com/RLars/Encoder
-
-// ---------
-// Wifi
-// ----------
-
-//------- Replace the following! ------
-char ssid[] = "SSID";         // your network SSID (name)
-char password[] = "password"; // your network key
-
-WiFiClient client;
-
-// Ip Address of computer
-IPAddress server(192, 168, 1, 32);
-#define SERVER_PORT 3000
 
 // --------
 // Rotary Encoder
@@ -65,9 +26,25 @@ const int reCLKPin = D1;
 long oldPosition = -999;
 unsigned long reTurnAllowedTime = 0;
 
-Encoder myEnc(reDTPin, reCLKPin);
+#define ENCODER_COOLDOWN 100
+
+// ---------
+// Wifi
+// ----------
+
+//------- Replace the following! ------
+char ssid[] = "Mikrotik";          // your network SSID (name)
+char password[] = "carolinebrian"; // your network key
+
+WiFiClient client;
+
+// Ip Address of computer
+IPAddress server(192, 168, 1, 32);
+#define SERVER_PORT 3000
 
 int selectedWebCam = 0;
+
+Encoder myEnc(reDTPin, reCLKPin);
 
 void setup()
 {
@@ -121,8 +98,9 @@ void handleRotaryEncoderTurn()
     sprintf(command, "/%s?camIndex=%d&value=%d", "adj", selectedWebCam, -5);
   }
 
-  if (newPosition != oldPosition)
+  if (reTurnAllowedTime < millis() && newPosition != oldPosition)
   {
+    reTurnAllowedTime = millis() + ENCODER_COOLDOWN;
     Serial.print(command);
     char message[50];
     sprintf(message, "GET %s HTTP/1.0", command);
@@ -141,11 +119,7 @@ void handleRotaryEncoderTurn()
 
 void loop()
 {
-  if (reTurnAllowedTime < millis())
-  {
-    handleRotaryEncoderTurn();
-    reTurnAllowedTime = millis() + 200;
-  }
+  handleRotaryEncoderTurn();
 
   if (digitalRead(reButtonPin) == LOW)
   {
