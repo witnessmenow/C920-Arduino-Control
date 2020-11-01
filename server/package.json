@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "delay": "^4.4.0",
+    "express": "^4.17.1",
     "iohook": "^0.6.6",
     "serialport": "^9.0.2",
     "uvc-control": "git+https://github.com/joelpurra/node-uvc-control.git"
